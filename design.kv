@@ -1,0 +1,421 @@
+#: import Transition kivy.uix.screenmanager.FadeTransition
+WindowManager:
+	transition: Transition()
+	SearchPanel:
+		id: SearchPanel
+		download_panel: DownloadPanel
+	VideoPanel:
+		id: VideoPanel
+		search: SearchPanel
+		download_panel: DownloadPanel
+	DownloadPanel:
+		id: DownloadPanel
+		videoinfo: VideoPanel
+	Secret:
+		searchscreen: SearchPanel
+
+<CustomButton@Button>:
+    font_name: "images\Orbitron.ttf"
+    size_hint: .6, .2
+    background_normal: ""
+    background_color: (.157, .455, .753, .7)
+    angle: 0
+    canvas.before:
+        PushMatrix
+        Rotate:
+            angle: root.angle
+            axis: 0, 0, 1
+            origin: root.center
+        Color:
+            rgba: (0, 0, 0, 1)
+        Line:
+            width: 3
+            rectangle: self.x, self.y, self.width, self.height
+    canvas.after:
+        PopMatrix
+
+<SpinnerOption>:
+    font_name: "images\Orbitron.ttf"
+    background_normal: ""
+	background_down: ""
+    background_color: (1, .64, 0, .9)
+    height: dp(55)
+	color: 0, 0, 0, 1
+	font_size: 20
+    canvas.before:
+        Color:
+            rgba: (0, 0, 0, 1)
+        Line:
+            width: 3
+            rectangle: self.x, self.y, self.width, self.height
+
+<Padding@RightClickTextInput>:
+    size_hint: .8, .1
+    font_size: 25
+    use_bubble: True
+    padding: [20, (self.height - self.line_height) / 2]
+    padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
+    multiline: False
+    angle: 0
+    canvas.before:
+    	Color:
+    		rgba: (0, 0, 0, 1)
+    	Line:
+            width: 2
+            rectangle: self.x, self.y, self.width, self.height
+
+<SearchPanel>:
+	name: "search"
+	url: url
+    search_button: search_button
+
+	canvas.before:
+		Rectangle
+			pos: self.pos
+            size: self.size
+            source: "images/bg2.jpg"
+
+    Image:
+        source: "images/logo.png"
+        pos_hint: {"x": -0.025, "top": 1.325}
+
+    Padding:
+    	id: url
+    	pos_hint: {"x": .1, "top": .75}
+    	hint_text: "Insert your URL here..."
+
+    CustomButton:
+        id: search_button
+    	font_size: 55
+    	size_hint: .6, .2
+    	text: "SEARCH"
+    	pos_hint: {"x": .2, "top": .4}
+    	background_color: (.7, 0.26, 0.21, 1)
+    	background_down: "images/red.jpg"
+    	on_release:
+    		root.search_video_start_thread(self)
+
+<VideoPanel>:
+	name: "videoinfo"
+	title: title
+	video_length: video_length
+    search_button: search_button
+	spinner: spinner
+    spinner_image: spinner_image
+	url: url
+
+	canvas.before:
+		Rectangle
+			pos: self.pos
+            size: self.size
+            source: "images/bg.jpg"
+
+    Image:
+        source: "images/logo.png"
+        pos_hint: {"x": -0.025, "top": 1.325}
+
+    Label:
+    	pos_hint: {"x": .15, "top": 1}
+    	size_hint: .7, .2
+    	font_size: 70
+    	color: 1,0,0,1
+
+    Padding:
+    	id: url
+    	pos_hint: {"x": .1, "top": .775}
+    	size_hint: .725, .1
+    	hint_text: "Insert your URL here..."
+
+    CustomButton:
+        id: search_button
+    	font_size: 30
+    	size_hint: .45, .1
+    	text: "SEARCH AGAIN"
+    	pos_hint: {"x": .275, "top": .425}
+    	background_color: 0, .5, 1
+    	on_release: root.search_video_start_thread()
+
+	CustomButton:
+		font_size: 60
+		size_hint: .6, .2
+		text: "DOWNLOAD"
+		background_color: (1, 0, 0, 1)
+		pos_hint: {"x": .2, "top": .25}
+		on_release: root.download()
+		canvas.before:
+			Color:
+				rgba: 0, 0, 0, 1
+    		Line:
+            	width: 4
+            	rectangle: self.x, self.y, self.width, self.height
+
+	Label:
+		id: title
+		size_hint: .1, .7
+		font_size: 30
+        color: 1, 0.84, 0, 1
+		font_name: "images\Sarpanch.ttf"
+		pos_hint: {"x": .45, "top": .95}
+
+	Label:
+		id: video_length
+		size_hint: .1, .7
+        color: 0.92, 0.67, 0.2, 1
+		font_size: 30
+		font_name: "images\Orbitron.ttf"
+		pos_hint: {"x": .45, "top": .85}
+
+	Spinner:
+		id: spinner
+        angle: 0
+        canvas.before:
+            PushMatrix
+            Rotate:
+                angle: spinner.angle
+                axis: 0, 0, 1
+                origin: root.center
+            Color:
+                rgba: (0, 0, 0, 1)
+            Line:
+                width: 3
+                rectangle: self.x, self.y, self.width, self.height
+        canvas.after:
+            PopMatrix
+
+		size_hint: .1, .1
+		pos_hint: {"x": .825, "top": .775}
+		background_normal: ""
+		background_down: ""
+		font_name: "images\Orbitron.ttf"
+    	background_color: (1, 0.75, 0.03, 0.8)
+    	color: 0, 0, 0, 1
+		font_size: 25
+		on_text: root.get_value_start_thread(self)
+
+        Image:
+            id: spinner_image
+            source: "images/arrow.png"
+            pos: self.parent.pos
+            size: self.parent.size
+
+<DownloadPanel>:
+	name: "download"
+	progressbar: progressbar
+	mb_remaining: mb_remaining
+	percentage: percentage
+    pause_button_image: pause_button_image
+    back_button: back_button
+
+	canvas.before:
+		Rectangle
+			pos: self.pos
+            size: self.size
+            source: "images/bg3.jpg"
+    Image:
+        source: "images/download_logo.png"
+        pos_hint: {"top": 1.2}
+
+    Image:
+        source: "images/logo.png"
+        pos_hint: {"x": -0.025, "top": 1.325}
+
+    CustomButton:
+        id: back_button
+    	font_size: 60
+    	size_hint: .5, .1
+    	text: "BACK"
+    	pos_hint: {"x": .25, "top": .2}
+    	background_color: (.7, 0.26, 0.21, 1)
+    	background_down: "images/red.jpg"
+    	on_release: app.root.current = "videoinfo"
+
+    Button:
+    	size_hint: .125, .15
+    	pos_hint: {"x": .3, "top": .4}
+        background_color: 0, 0, 0, 0
+    	on_release:
+            root.pause_download()
+
+    	Image:
+            id: pause_button_image
+    		pos: self.parent.pos
+    		size: self.parent.size
+
+    Button:
+    	size_hint: .125, .15
+    	pos_hint: {"x": .55, "top": .4}
+    	background_color: 0, 0, 0, 0
+    	on_release: root.open_popup()
+        Image:
+            source: "images/cancel.png"
+            pos: self.parent.pos
+            size: self.parent.size
+
+    ProgressBar:
+    	id: progressbar
+    	size_hint: .8, .1
+    	pos_hint: {"x": .1, "top": .6}
+    	value: 0
+    	min: 0
+
+    Label:
+    	id: mb_remaining
+    	size_hint: .5, .2
+    	text: "0MB / 0MB"
+    	font_size: 50
+    	font_name: "images\Sarpanch.ttf"
+    	pos_hint: {"x": .25, "top": .575}
+
+    Label:
+    	id: percentage
+    	size_hint: .2, .2
+    	font_size: 50
+    	font_name: "images\Orbitron.ttf"
+    	pos_hint: {"x": .4, "top": .725}
+    	text: "0%"
+
+<Secret>:
+	name: "secret"
+
+	canvas.before:
+		Rectangle
+			pos: self.pos
+            size: self.size
+            source: "images/bg.jpg"
+
+	Label:
+		size_hint: .8, .2
+		pos_hint: {"x": .1, "top": 1}
+		text: "Oh - hoo! You've found the secret easter egg!"
+		font_size: 35
+		color: 1, .64, 0, 1
+		font_name: "images\Orbitron.ttf"
+
+	Label:
+		size_hint: .7, .8
+		pos_hint: {"x": .15, "top": .825}
+		text: "If you see this, you probably checked my repository's page on GitHub.\n\nThis was developed by me in the span of 2 weeks. Hope you enjoy!\n\n        Thank you for downloading! Feel free to leave a comment!\n\n                            Any feedback is much appreciated!\n\n                          If you like this project, star it on GitHub!\n\n\n\n\n\n\n\n\n\nBy Daniel - https://github.com/Myphz"
+		font_size: 25
+		font_name: "images\Orbitron.ttf"
+
+	Label:
+		size_hint: .6, .2
+		pos_hint: {"x": .175, "top": .4}
+		font_name: "images\Orbitron.ttf"
+		font_size: 30
+		text: "PRESS F8 TO DISMISS THIS SCREEN"
+
+
+<URLError>:
+	Label:
+		pos_hint: {"x": .3, "top": .5}
+		size_hint: .4, .1
+		font_size: 20
+		font_name: "images\Sarpanch.ttf"
+		text: "Wrong URL. Please check and retry."
+
+<Error>:
+    Label:
+        pos_hint: {"x": .3, "top": .5}
+        size_hint: .4, .1
+        font_size: 20
+        font_name: "images\Sarpanch.ttf"
+        text: "An error has occurred. Please retry."
+
+<FFMPEGError>:
+    Label:
+        pos_hint: {"x": .3, "top": .5}
+        size_hint: .4, .1
+        font_size: 17
+        font_name: "images\Sarpanch.ttf"
+        text: "Install and add FFMPEG to PATH to download videos!"
+
+<Success>:
+    Label:
+        pos_hint: {"x": .3, "top": .5}
+        size_hint: .4, .1
+        font_size: 20
+        font_name: "images\Sarpanch.ttf"
+        text: "Video download sucessfully!"
+
+<ConfirmationCancel>:
+    Label:
+        pos_hint: {"x": .3, "top": .9}
+        size_hint: .4, .1
+        font_size: 20
+        font_name: "images\Sarpanch.ttf"
+        text: "Are you sure? The video is downloading!"
+
+    Label:
+        pos_hint: {"x": .3, "top": .75}
+        size_hint: .4, .1
+        font_size: 25
+        color: 1,0,0,1
+        font_name: "images\Sarpanch.ttf"
+        text: "The download will be cancelled!"
+
+    Label:
+        pos_hint: {"x": .3, "top": .55}
+        size_hint: .4, .1
+        font_size: 35
+        color: 1,0,0,1
+        font_name: "images\Orbitron.ttf"
+        text: "CONFIRM?"
+
+    Button:
+        pos_hint: {"x": .05, "top": .3}
+        size_hint: .4, .2
+        text: "YES"
+        font_name: "images\Orbitron.ttf"
+        font_size: 30
+        on_release:
+			app.get_running_app().root.current_screen.cancel_download()
+			app.get_running_app().root.current_screen.dismiss()
+
+    Button:
+        pos_hint: {"x": .55, "top": .3}
+        size_hint: .4, .2
+        text: "NO"
+        font_name: "images\Orbitron.ttf"
+        font_size: 30
+        on_release: app.get_running_app().root.current_screen.dismiss()
+
+<ConfirmationQuit>:
+    Label:
+        pos_hint: {"x": .3, "top": .9}
+        size_hint: .4, .1
+        font_size: 20
+        font_name: "images\Sarpanch.ttf"
+        text: "Are you sure? The video is downloading!"
+
+    Label:
+        pos_hint: {"x": .3, "top": .75}
+        size_hint: .4, .1
+        font_size: 25
+        color: 1,0,0,1
+        font_name: "images\Sarpanch.ttf"
+        text: "The download will be cancelled!"
+
+    Label:
+        pos_hint: {"x": .3, "top": .55}
+        size_hint: .4, .1
+        font_size: 35
+        color: 1,0,0,1
+        font_name: "images\Orbitron.ttf"
+        text: "CONFIRM?"
+
+    Button:
+        pos_hint: {"x": .05, "top": .3}
+        size_hint: .4, .2
+        text: "QUIT"
+        font_name: "images\Orbitron.ttf"
+        font_size: 30
+        on_release: app.exit()
+
+    Button:
+        pos_hint: {"x": .55, "top": .3}
+        size_hint: .4, .2
+        text: "CANCEL"
+        font_name: "images\Orbitron.ttf"
+        font_size: 30
+        on_release: app.cancel()
