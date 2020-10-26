@@ -266,6 +266,7 @@ class DownloadPanel(Screen):
 
     def cancel_download(self):
             self.cancelled = True
+            self.is_downloading = False
             self.thread.join()
             self.delete_files()
             try: remove(self.videoinfo.path.replace('"', ''))
