@@ -241,7 +241,8 @@ class DownloadPanel(Screen):
         self.thread.start()
 
     def download_video(self):
-        # Downloads the video chunk by chunk, to let the user pause or cancel the download. Also displays the download progress by changing the progressbar value and modifying labels.
+        # Downloads the video chunk by chunk, to let the user pause or cancel the download.
+        # Also displays the download progress by changing the progressbar value and modifying labels.
         self.progressbar.max = self.videoinfo.total_size
         self.progressbar.value = 0
         downloaded = 0
