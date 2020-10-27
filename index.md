@@ -1,37 +1,36 @@
-## Welcome to GitHub Pages
+# PyTube Downloader - Youtube Downloader with Python!
 
-You can use the [editor on GitHub](https://github.com/Myphz/pytubedownloader/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+![](images/screenshot1.png)
+![](images/screenshot2.png)
+![](images/screenshot3.png)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Information
+Tired of all these ads and popups appearing on your screen when trying to download a YouTube video?\
+Check out PyTube Downloader! No more tedious advertisements popping everywhere, just a simple and easy solution to your problems!\
+With its intuitive GUI and the pytube library, PyTube Downloader is able to detect every YouTube video from its URL and download them in any available resolutions and more!
 
-### Markdown
+## Usage
+Simply <a href="https://mega.nz/file/4L5VQCwL#YTjAW-A_PP9q97sUHsmqBHnPG4fV0BDkaGnGOI8XBb0" target="_blank">download</a> and open the executable file (recommended) or install all the dependencies and execute the main.py script.\
+*FFmpeg is required in order to download videos. Be sure to <a href="https://www.wikihow.com/Install-FFmpeg-on-Windows" target="_blank">install it and have it added to PATH</a>!*\
+To download a video, just copy and paste the URL of the video you want in the text field and click on the search button.\
+Choose your desired resolution and simply click the download button! It's easy as that, without annoying popups!
+Check the <a href="https://youtu.be/oWKE2u6k6zA" target="_blank">video tutorial</a>!
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Download
+https://mega.nz/file/4L5VQCwL#YTjAW-A_PP9q97sUHsmqBHnPG4fV0BDkaGnGOI8XBb0 (.exe file, 17.6 MB)
 
-```markdown
-Syntax highlighted code block
+## Dependencies
+Install all the dependencies by typing ```pip install -r requirements.txt``` or by individually installing each one of them listed below.\
+Ensure you have the latest pip and wheel by typing ```pip install --upgrade pip wheel setuptools```
 
-# Header 1
-## Header 2
-### Header 3
+- Pytube3
+- <a href="https://kivy.org/doc/stable/installation/installation-windows.html" target="_blank">Kivy</a>
+- EasyGUI
 
-- Bulleted
-- List
+**_Note: you might encounter issues with the pytube library. I had to manually modify some files inside the pytube3 directory to make it work. To avoid all of this, download the executable file!_**
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Myphz/pytubedownloader/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+## Notes
+This project was developed by me in the span of two weeks. Hope you enjoy it!\
+Any feedback is really appreciated, along with pull requests and issues requests!\
+Feel free to contact me for any issue! :blush:\
+Don't forget to :star: this repository if you liked it!
