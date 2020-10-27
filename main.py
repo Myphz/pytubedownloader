@@ -21,16 +21,19 @@ from subprocess import run
 from urllib import error
 from os import remove
 from os import _exit
-
+# Resize window and put it in the center of the screen
 Window.size = (960, 740)
 Window.left -= 80
 Window.top -= 70
-
+# Animations needed for the script
 spin_anim = Animation(angle=7.5, duration=.15) + Animation(angle=-7.5, duration=.15) + Animation(angle=0, duration=.15)
 title_fade_anim = Animation(color=(1, 0.84, 0, 0), duration=.5) + Animation(color=(1, 0.84, 0, 1), duration=.5)
 duration_fade_anim = Animation(color=(0.92, 0.67, 0.2, 0), duration=.5) + Animation(color=(0.92, 0.67, 0.2, 1), duration=.5)
 
 def calculate_length(seconds):
+    """Given a time in seconds, this
+    function calculates the hours, minutes and seconds
+    and returns it as a string formatted accordly."""
     hours = seconds // 3600
     seconds -= hours * 3600
     minutes = seconds // 60
@@ -42,6 +45,7 @@ def calculate_length(seconds):
 
 
 def show_popup(class_name, title, error=True):
+    # This function simply displays a popup message, taking its contents from class_name.
     if error:
         Popup(title=title, title_size="18sp", title_font="images\\Orbitron.ttf", title_align="center", title_color=[1,0,0,1], separator_color=[1,1,0,1], content=class_name(), size_hint=(.5, .2)).open()
     else:
@@ -80,6 +84,8 @@ class SearchPanel(Screen):
         Clock.schedule_interval(self.change_panel, .2)
 
     def search_video(self):
+        """This function tries to create the YouTube object
+        and popups an error message if something went wrong."""
         if self.clicked:
             self.search_button.text = "LOADING VIDEO..."
             self.search_button.background_down = ""
@@ -98,6 +104,7 @@ class SearchPanel(Screen):
                 show_popup(Error, "Server Error")
 
     def change_panel(self, dt):
+        # I need this in a separate function as Kivy cannot make transitions happen in a secondary thread.
         if self.video:
             Clock.unschedule(self.change_panel)
             self.parent.current = "videoinfo"
@@ -125,6 +132,7 @@ class VideoPanel(Screen):
         threading.Thread(target=self.search_video).start()
 
     def search_video(self):
+        # Same as before, but with more options.
         if self.clicked:
             self.search_button.text = "LOADING VIDEO..."
             self.search_button.background_down = ""
@@ -146,6 +154,7 @@ class VideoPanel(Screen):
                 show_popup(Error, "Server Error")
 
     def modify_labels(self, animation=True):
+        # This function modifies labels when clicking the search button.
         if animation:
             title_fade_anim.start(self.title)
             duration_fade_anim.start(self.video_length)
@@ -156,6 +165,7 @@ class VideoPanel(Screen):
         self.video_length.text = f"DURATION: {self.video_time}"
 
     def display_options(self):
+        # This function attaches all the possible resolution as options in the spinner object.
         self.spinner.values.clear()
         self.spinner.text = ""
         self.spinner_image.opacity = 1
@@ -163,6 +173,7 @@ class VideoPanel(Screen):
         self.spinner.values.append("AUDIO")
 
     def modify_button(self):
+        # This function simply modify the search button accordingly.
         self.search_button.text = "SEARCH AGAIN"
         self.search_button.background_down = "images/red.png"
 
@@ -171,10 +182,16 @@ class VideoPanel(Screen):
         threading.Thread(target=self.get_value).start()
 
     def get_value(self):
+        """This function appends the selected videos to the selected_videos list.
+        Pytube can't download both video and audio in the same file,
+        so if the user choose a video format, this function will append 2 values
+        in the selected_videos list: the video with the selected resolution and the video audio.
+        It simply appends the audio if the user choose the audio format."""
         self.selected_videos = []
         if self.spinner.values:
             self.spinner_image.opacity = 0
             if self.spinner.text[0].isdigit():
+                # Some resolutions (360p and 144p) also have the audio included, but for some reason their size are huge, so always choose the non-audio video and later merge it with the audio.
                 if not self.search.video.streams.filter(res=self.spinner.text)[0].includes_audio_track:
                     self.selected_videos = [self.search.video.streams.filter(res=self.spinner.text)[0]]
                 else:
@@ -182,12 +199,15 @@ class VideoPanel(Screen):
             self.selected_videos.append(self.search.video.streams.filter(only_audio=True)[1])
             try: self.total_size = sum([video.filesize for video in self.selected_videos])
             except (error.URLError, error.HTTPError):
+                # In case of HTTP error, change spinner text and remove the option.
                 self.total_size = 0
                 self.spinner.values.remove(self.spinner.text)
                 self.spinner.text = self.spinner.values[0]
             self.video_length.text = f"DURATION: {self.video_time} - SIZE: {round(self.total_size / 1024 ** 2, 2)}MB"
 
     def download(self):
+        """This function stores in a variable the user's desired path and adds the extension to the file if it is not included in the name.
+        If the user hasn't chosen any resolution, the spinner options will be shown. """
         if self.selected_videos:
             extension = ".mp4" if len(self.selected_videos) > 1 else ".mp3"
             self.path = filesavebox("Select download directory", "YouTube Downloader", self.title.text + extension)
@@ -207,6 +227,9 @@ class DownloadPanel(Screen):
     back_button = ObjectProperty(None)
 
     def on_pre_enter(self):
+        """Starts the download of the files.
+        Stores the video and the audio in different files with no extension,
+        they will later be merged in a single file with the desired path."""
         self.video_path = "\\".join(self.videoinfo.path.split("\\")[:-1]) + "\\temp_file1"
         self.audio_path = "\\".join(self.videoinfo.path.split("\\")[:-1]) + "\\temp_file2"
         self.pause_button_image.source = "images/pause.png"
@@ -218,6 +241,7 @@ class DownloadPanel(Screen):
         self.thread.start()
 
     def download_video(self):
+        # Downloads the video chunk by chunk, to let the user pause or cancel the download. Also displays the download progress by changing the progressbar value and modifying labels.
         self.progressbar.max = self.videoinfo.total_size
         self.progressbar.value = 0
         downloaded = 0
@@ -240,6 +264,7 @@ class DownloadPanel(Screen):
                         self.mb_remaining.text = f"{round(downloaded / 1024 ** 2, 2)}MB / {round(self.videoinfo.total_size / 1024 ** 2, 2)}MB"
                         self.percentage.text = f"{round(downloaded * 100 / self.videoinfo.total_size, 2)}%"
                         continue
+                    # If the download has ended, merge the files if they are more than two, open the success popup and activate the back button.
                     if self.percentage.text == "100.0%":
                         self.is_downloading = False
                         if len(self.videoinfo.selected_videos) > 1:
@@ -250,15 +275,18 @@ class DownloadPanel(Screen):
                     break
 
     def pause_download(self):
+        # Change the pause button icon and pause the video.
         self.pause_button_image.source = "images/pause.png" if self.paused else "images/resume.png"
         self.paused = not self.paused
 
     def open_popup(self):
+        # Open a customized popup if the user wants to cancel the download while the files are downloading.
         if self.is_downloading:
             self.confirmation_popup = Popup(title="!    !   !", title_size="30sp", title_font="images\\Orbitron.ttf", title_align="center", title_color=[1,0,0,1], separator_color=[1,1,0,1], content=ConfirmationCancel(), size_hint=(.5, .5), auto_dismiss=False)
             self.confirmation_popup.open()
 
     def cancel_download(self):
+        # Cancel the download and delete all the temporary files that have been downloaded.
             self.cancelled = True
             self.is_downloading = False
             self.thread.join()
@@ -270,9 +298,12 @@ class DownloadPanel(Screen):
             self.back_button.disabled = False
 
     def dismiss(self):
+        # Dismiss the popup.
         self.confirmation_popup.dismiss()
 
     def merge_videos(self):
+        # Merge temporary files using ffmpeg without opening the console, deletes the temporary files after and displays the success popup.
+        # Displays a customized popup error if ffmepg is not installed.
         self.thread.join()
         try:
             run(f"ffmpeg -y -i {self.video_path} -i {self.audio_path} -c copy {self.videoinfo.path}", creationflags=0x08000000)
@@ -286,6 +317,7 @@ class DownloadPanel(Screen):
             show_popup(Success, "Download Sucessful", error=False)
 
     def delete_files(self):
+        # Delete all the temporary files that have been downloaded.
         try:
             remove(self.video_path)
             remove(self.audio_path)
@@ -301,6 +333,7 @@ class Secret(Screen):
 
 
 class RightClickTextInput(TextInput):
+    # Open the bubble menu "copy, cut, paste" on right click on a TextInput object.
     def on_touch_down(self, touch):
         super(RightClickTextInput,self).on_touch_down(touch)
         if touch.button == 'right':
@@ -345,6 +378,7 @@ class MyApp(App):
         return kv
 
     def on_request_close(self, *args):
+        # Displays a popup if the users wants to close the application while the files are downloading.
         if App.get_running_app().root.current == "download":
             if App.get_running_app().root.current_screen.is_downloading:
                 self.confirmation_popup = Popup(title="!    !    !", title_size="30sp", title_font="images\\Orbitron.ttf", title_align="center", title_color=[1,0,0,1], separator_color=[1,1,0,1], content=ConfirmationQuit(), size_hint=(.5, .5), auto_dismiss=False)
@@ -352,9 +386,11 @@ class MyApp(App):
                 return True
 
     def cancel(self):
+        # Dismiss the popup.
         self.confirmation_popup.dismiss()
 
     def exit(self):
+        # Deletes the files and closes the application.
         App.get_running_app().root.current_screen.cancel_download()
         _exit(0)
 
