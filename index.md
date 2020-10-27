@@ -32,5 +32,5 @@ Ensure you have the latest pip and wheel by typing ```pip install --upgrade pip 
 ## Notes
 This project was developed by me in the span of two weeks. Hope you enjoy it!\
 Any feedback is really appreciated, along with pull requests and issues requests!\
-Feel free to contact me for any issue! :blush:\
+Feel free to contact me for any issue!
 Don't forget to star this repository on GitHub if you like it!
