@@ -17,7 +17,7 @@ Choose your desired resolution and simply click the download button! It's easy a
 Check the <a href="https://youtu.be/oWKE2u6k6zA" target="_blank">video tutorial</a>!
 
 ## Download
-https://mega.nz/file/4L5VQCwL#YTjAW-A_PP9q97sUHsmqBHnPG4fV0BDkaGnGOI8XBb0 (.exe file, 17.6 MB)
+[https://mega.nz/file/4L5VQCwL#YTjAW-A_PP9q97sUHsmqBHnPG4fV0BDkaGnGOI8XBb0](https://mega.nz/file/4L5VQCwL#YTjAW-A_PP9q97sUHsmqBHnPG4fV0BDkaGnGOI8XBb0) (.exe file, 17.6 MB)
 
 ## Dependencies
 Install all the dependencies by typing ```pip install -r requirements.txt``` or by individually installing each one of them listed below.\
@@ -33,4 +33,4 @@ Ensure you have the latest pip and wheel by typing ```pip install --upgrade pip 
 This project was developed by me in the span of two weeks. Hope you enjoy it!\
 Any feedback is really appreciated, along with pull requests and issues requests!\
 Feel free to contact me for any issue! :blush:\
-Don't forget to :star: this repository if you liked it!
+Don't forget to star this repository on GitHub if you like it!
