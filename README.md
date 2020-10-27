@@ -1,8 +1,8 @@
 # PyTube Downloader - Youtube Downloader with Python!
 
-![testo prova](http://prntscr.com/v87may)
-![testo prova2](http://prntscr.com/v87mx2)
-![testo prova3](http://prntscr.com/v87nas)
+![](images/screenshot1.png)
+![](images/screenshot2.png)
+![](images/screenshot3.png)
 
 ## Information
 Tired of all these ads and popups appearing on your screen when trying to download a YouTube video?\
