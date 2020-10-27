@@ -1,0 +1,5 @@
+easygui
+pytube3
+docutils pygments pypiwin32 kivy_deps.sdl2==0.1.* kivy_deps.glew==0.1.*
+kivy_deps.angle==0.1.*
+kivy==2.0.0rc3
