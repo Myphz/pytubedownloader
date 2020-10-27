@@ -7,7 +7,7 @@
 ## Information
 Tired of all these ads and popups appearing on your screen when trying to download a YouTube video?\
 Check out PyTube Downloader! No more tedious advertisements popping everywhere, just a simple and easy solution to your problems!\
-PyTube Downloader, with its intuitive GUI and the pytube library, is able to detect every YouTube video from its URL and download them in any available resolutions and more!
+With its intuitive GUI and the pytube library, PyTube Downloader is able to detect every YouTube video from its URL and download them in any available resolutions and more!
 
 ## Usage
 Simply <a href="https://mega.nz/file/4L5VQCwL#YTjAW-A_PP9q97sUHsmqBHnPG4fV0BDkaGnGOI8XBb0" target="_blank">download</a> and open the executable file (recommended) or install all the dependencies and execute the main.py script.\
