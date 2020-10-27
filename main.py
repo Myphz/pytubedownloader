@@ -91,9 +91,6 @@ class SearchPanel(Screen):
                 self.search_button.text = "SEARCH"
                 self.search_button.background_down = "images/red.png"
                 show_popup(URLError, "URL Error")
-            except KeyError:
-                self.clicked = True
-                self.search_video()
             except:
                 self.clicked = True
                 self.search_button.text = "SEARCH"
@@ -143,9 +140,6 @@ class VideoPanel(Screen):
                 self.clicked = True
                 self.modify_button()
                 show_popup(URLError, "URL Error")
-            except KeyError:
-                self.clicked = True
-                self.search_video()
             except:
                 self.clicked = True
                 self.modify_button()
@@ -352,7 +346,7 @@ class MyApp(App):
 
     def on_request_close(self, *args):
         if App.get_running_app().root.current == "download":
-            if App.get_running_app().root.current_screen.is_downloading and not App.get_running_app().root.current_screen.cancelled:
+            if App.get_running_app().root.current_screen.is_downloading:
                 self.confirmation_popup = Popup(title="!    !    !", title_size="30sp", title_font="images\\Orbitron.ttf", title_align="center", title_color=[1,0,0,1], separator_color=[1,1,0,1], content=ConfirmationQuit(), size_hint=(.5, .5), auto_dismiss=False)
                 self.confirmation_popup.open()
                 return True
