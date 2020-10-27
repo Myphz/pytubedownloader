@@ -27,10 +27,10 @@ Ensure you have the latest pip and wheel by typing ```pip install --upgrade pip 
 - <a href="https://kivy.org/doc/stable/installation/installation-windows.html" target="_blank">Kivy</a>
 - EasyGUI
 
-**_Note: you might encounter issues with the pytube library. I had to manually modify some files inside the pytube3 directory to make it work. To avoid all of this, download the executable file!_**\
+**_Note: you might encounter issues with the pytube library. I had to manually modify some files inside the pytube3 directory to make it work. To avoid all of this, download the executable file!_**
 
 ## Notes
 This project was developed by me in the span of two weeks. Hope you enjoy it!\
 Any feedback is really appreciated, along with pull requests and issues requests!\
 Feel free to contact me for any issue! :blush:\
-Don't forget to :star: this repository if you liked it!\
+Don't forget to :star: this repository if you liked it!
