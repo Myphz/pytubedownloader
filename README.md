@@ -16,7 +16,7 @@ To download a video, just copy and paste the URL of the video you want in the te
 Choose your desired resolution and simply click the download button! It's easy as that, without annoying popups!
 Check the <a href="https://youtu.be/oWKE2u6k6zA" target="_blank">video tutorial</a>!
 
-## Download
+## Download (only available for Windows)
 https://mega.nz/file/4L5VQCwL#YTjAW-A_PP9q97sUHsmqBHnPG4fV0BDkaGnGOI8XBb0 (.exe file, 17.6 MB)
 
 ## Dependencies
