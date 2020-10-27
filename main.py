@@ -173,7 +173,7 @@ class VideoPanel(Screen):
         self.spinner.values.append("AUDIO")
 
     def modify_button(self):
-        # This function simply modify the search button accordingly.
+        # This function modifies the search button accordingly.
         self.search_button.text = "SEARCH AGAIN"
         self.search_button.background_down = "images/red.png"
 
@@ -186,12 +186,12 @@ class VideoPanel(Screen):
         Pytube can't download both video and audio in the same file,
         so if the user choose a video format, this function will append 2 values
         in the selected_videos list: the video with the selected resolution and the video audio.
-        It simply appends the audio if the user choose the audio format."""
+        It just appends the audio if the user choose the audio format."""
         self.selected_videos = []
         if self.spinner.values:
             self.spinner_image.opacity = 0
             if self.spinner.text[0].isdigit():
-                # Some resolutions (360p and 144p) also have the audio included, but for some reason their size are huge, so always choose the non-audio video and later merge it with the audio.
+                # Some resolutions (360p and 144p) also have the audio included, but for some reason their size are huge, so always choose the non-audio video and later merge it with the audio file.
                 if not self.search.video.streams.filter(res=self.spinner.text)[0].includes_audio_track:
                     self.selected_videos = [self.search.video.streams.filter(res=self.spinner.text)[0]]
                 else:
