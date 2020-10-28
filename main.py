@@ -33,7 +33,7 @@ duration_fade_anim = Animation(color=(0.92, 0.67, 0.2, 0), duration=.5) + Animat
 def calculate_length(seconds):
     """Given a time in seconds, this
     function calculates the hours, minutes and seconds
-    and returns it as a string formatted accordly."""
+    and returns it as a string formatted accordingly."""
     hours = seconds // 3600
     seconds -= hours * 3600
     minutes = seconds // 60
@@ -104,6 +104,7 @@ class SearchPanel(Screen):
                 show_popup(Error, "Server Error")
 
     def change_panel(self, dt):
+        # This function just transitions from the first panel to the second panel.
         # I need this in a separate function as Kivy cannot make transitions happen in a secondary thread.
         if self.video:
             Clock.unschedule(self.change_panel)
