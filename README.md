@@ -10,14 +10,14 @@ Check out PyTube Downloader! No more tedious advertisements popping everywhere, 
 With its intuitive GUI and the pytube library, PyTube Downloader is able to detect every YouTube video from its URL and download them in any available resolutions and more!
 
 ## Usage
-Simply <a href="https://mega.nz/file/4L5VQCwL#YTjAW-A_PP9q97sUHsmqBHnPG4fV0BDkaGnGOI8XBb0" target="_blank">download</a> and open the executable file (recommended) or install all the dependencies and execute the main.py script.\
+Simply <a href="https://mega.nz/file/wDxClSwR#upvmz3K5Mg6M6fHdVloRwtlsL8MfT4gP8yeDvv_FDfQ" target="_blank">download</a> and open the executable file (recommended) or install all the dependencies and execute the main.py script.\
 *FFmpeg is required in order to download videos. Be sure to <a href="https://www.wikihow.com/Install-FFmpeg-on-Windows" target="_blank">install it and have it added to PATH</a>!*\
 To download a video, just copy and paste the URL of the video you want in the text field and click on the search button.\
 Choose your desired resolution and simply click the download button! It's easy as that, without annoying popups!
 Check the <a href="https://youtu.be/oWKE2u6k6zA" target="_blank">video tutorial</a>!
 
 ## Download (only available for Windows)
-https://mega.nz/file/4L5VQCwL#YTjAW-A_PP9q97sUHsmqBHnPG4fV0BDkaGnGOI8XBb0 (.exe file, 17.6 MB)
+https://mega.nz/file/wDxClSwR#upvmz3K5Mg6M6fHdVloRwtlsL8MfT4gP8yeDvv_FDfQ (.exe file, 17.6 MB)
 
 ## Dependencies
 Install all the dependencies by typing ```pip install -r requirements.txt``` or by individually installing each one of them listed below.\
