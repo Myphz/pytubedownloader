@@ -17,7 +17,7 @@ Choose your desired resolution and simply click the download button! It's easy a
 Check the <a href="https://youtu.be/oWKE2u6k6zA" target="_blank">video tutorial</a>!
 
 ## Download (only available for Windows)
-https://mega.nz/file/wDxClSwR#upvmz3K5Mg6M6fHdVloRwtlsL8MfT4gP8yeDvv_FDfQ (.exe file, 17.6 MB)
+https://mega.nz/file/wDxClSwR#upvmz3K5Mg6M6fHdVloRwtlsL8MfT4gP8yeDvv_FDfQ (.exe file, 19 MB)
 
 ## Dependencies
 Install all the dependencies by typing ```pip install -r requirements.txt``` or by individually installing each one of them listed below.\
